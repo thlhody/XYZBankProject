@@ -17,7 +17,7 @@ public class PropertyUtility {
     private void loadFile(String path) {
         properties = new Properties();
         try {
-            fileInputStream = new FileInputStream("src/test/resources/inputData/" + path + ".properties");
+            fileInputStream = new FileInputStream("src/test/java/resources/inputData/" + path + ".properties");
             properties.load(fileInputStream);
         } catch (Exception e) {
 

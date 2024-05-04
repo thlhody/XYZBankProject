@@ -17,19 +17,22 @@ public class HomePage extends BasePage {
     @FindBy(css = "button[ng-click='manager()']")
     private WebElement managerButtonLogin;
 
-    public void navigateToHomePage(){
+    public void navigateToHomePage() {
         clickButton.clickBttNormal(homeButton);
         LoggerUtility.infoTest("User clicks on Home Button!");
+        clickButton.clickButtonWait();
     }
 
-    public void navigateToCustomerPage(){
+    public void navigateToCustomerPage() {
         clickButton.clickBttNormal(customerButtonLogin);
         LoggerUtility.infoTest("User clicks on Customer Login Button!");
+        clickButton.clickButtonWait();
     }
 
-    public void navigateToManagerPage(){
+    public void navigateToManagerPage() {
         clickButton.clickBttNormal(managerButtonLogin);
         LoggerUtility.infoTest("User clicks on Bank Manager Login Button!");
+        clickButton.clickButtonWait();
     }
 
 }

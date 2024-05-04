@@ -10,10 +10,10 @@ public class BasePage {
     public ClickButton clickButton;
     //public - declaram toate metodele care le vom folosi din helpermethods
 
-    public BasePage(WebDriver webDriver){
+    public BasePage(WebDriver webDriver) {
         this.webDriver = webDriver;
         clickButton = new ClickButton(webDriver);
         //creem contructor pentru toate metodele care le declaram mai sus
-        PageFactory.initElements(webDriver,this);
+        PageFactory.initElements(webDriver, this);
     }
 }
