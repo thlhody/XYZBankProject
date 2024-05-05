@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 public class LoggerUtility {
 
-    private static final Logger logger = LogManager.getLogger();
+    private static Logger logger = LogManager.getLogger();
 
     public static void startTestCase(String testCase) {
         logger.info("****** Test Execution Started: {} ******", testCase);

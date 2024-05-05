@@ -2,7 +2,7 @@
 <suite name="Features Suite" >
     <test name="Features Suite" >
         <classes>
-            <class name="tests.firstTestComplete"/>
+            <class name="tests.FirstTestTemporary"/>
         </classes>
     </test>
 </suite>

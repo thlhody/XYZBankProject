@@ -6,15 +6,15 @@
         <!-- Console appender configuration -->
         <Console name="console" target="SYSTEM_OUT">
             <PatternLayout
-                    pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n" />
+                    pattern="%d{yyyy-MM-dd HH:mm:ss} %replace{%c{1}}{LoggerUtility}{LU}:%L - %m%n" />
         </Console>
         <Routing name="RoutingAppender">
             <Routes pattern="${ctx:threadName}">
                 <Route>
                     <File name="Rolling-${ctx:threadName}"
-                          fileName="target/logs/suite.log"
+                          fileName="target/logs/suitetest.log"
                           append="false">
-                        <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n"/>
+                        <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %replace{%c{1}}{LoggerUtility}{LU}:%L - %m%n"/>
                     </File>
                 </Route>
             </Routes>

@@ -18,21 +18,18 @@ public class BankManagerPage extends BasePage {
     private WebElement showCustomerButton;
 
     public void navigateToAddCustomerPage() {
-        clickButton.clickBttNormal(addCustomerButton);
+        clickMethods.clickBttNormal(addCustomerButton);
         LoggerUtility.infoTest("User clicks on Add Customer Button!");
-        clickButton.clickButtonWait();
     }
 
     public void navigateToOpenAccountPage() {
-        clickButton.clickBttNormal(openAccountButton);
+        clickMethods.clickBttNormal(openAccountButton);
         LoggerUtility.infoTest("User clicks on Open Account Button!");
-        clickButton.clickButtonWait();
     }
 
     public void navigateToCustomersPage() {
-        clickButton.clickBttNormal(showCustomerButton);
+        clickMethods.clickBttNormal(showCustomerButton);
         LoggerUtility.infoTest("User clicks on Show Cusomer Button!");
-        clickButton.clickButtonWait();
     }
 
 }

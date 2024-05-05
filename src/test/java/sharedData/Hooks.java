@@ -17,9 +17,10 @@ public class Hooks extends SharedData {
         LoggerUtility.infoTest("The driver is opened with succes");
 
     }
+
     @AfterMethod
     public void clearEnviroment(ITestResult result) {
-        if(!result.isSuccess()){
+        if (!result.isSuccess()) {
             LoggerUtility.errorTestCase(result.getThrowable().getMessage());
         }
         testName = this.getClass().getSimpleName();

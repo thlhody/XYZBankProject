@@ -18,21 +18,18 @@ public class HomePage extends BasePage {
     private WebElement managerButtonLogin;
 
     public void navigateToHomePage() {
-        clickButton.clickBttNormal(homeButton);
+        clickMethods.clickBttNormal(homeButton);
         LoggerUtility.infoTest("User clicks on Home Button!");
-        clickButton.clickButtonWait();
     }
 
     public void navigateToCustomerPage() {
-        clickButton.clickBttNormal(customerButtonLogin);
+        clickMethods.clickBttNormal(customerButtonLogin);
         LoggerUtility.infoTest("User clicks on Customer Login Button!");
-        clickButton.clickButtonWait();
     }
 
     public void navigateToManagerPage() {
-        clickButton.clickBttNormal(managerButtonLogin);
+        clickMethods.clickBttNormal(managerButtonLogin);
         LoggerUtility.infoTest("User clicks on Bank Manager Login Button!");
-        clickButton.clickButtonWait();
     }
 
 }
