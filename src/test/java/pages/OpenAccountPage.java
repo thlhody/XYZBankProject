@@ -7,7 +7,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import propertyUtility.PropertyUtility;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class OpenAccountPage extends BasePage {
@@ -31,22 +30,19 @@ public class OpenAccountPage extends BasePage {
         PropertyUtility pU = new PropertyUtility("AddCustomerDataTemp");
         Integer customerIDnr = Integer.valueOf(pU.getAllData().get("CustomerID"));
         clickMethods.clickBttNormal(findByUserID.get(customerIDnr));
-        LoggerUtility.infoTest("User enters Customer: "+ value+"_ID_"+customerIDnr);
-        waitMethod.waitToSee();
+        LoggerUtility.infoTest("User enters Customer " + value + " with ID " + customerIDnr);
     }
 
     public void selectCurrency(String text) {
         clickMethods.clickBttNormal(selectCurrencyElement);
         inputMethods.inputText(selectCurrencyElement, text);
         LoggerUtility.infoTest("User selects Currency: " + text);
-        waitMethod.waitToSee();
     }
 
     public void pressProcess() {
         clickMethods.clickBttNormal(clickProcessButton);
         LoggerUtility.infoTest("User presses the Process Button");
         alertMethods.copyAlertMesage();
-        waitMethod.waitToSee();
         alertMethods.acceptAlert();
     }
 

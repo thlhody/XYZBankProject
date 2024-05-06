@@ -16,7 +16,6 @@ public class FirstTestTemporary extends Hooks {
 
         BankManagerPage bankMP = new BankManagerPage(getWebDriver());
 
-
         bankMP.navigateToAddCustomerPage();
         PropertyUtility propertyUtilityA = new PropertyUtility("AddCustomerDataA");
         AddCustomerObject addCustomerObjectA = new AddCustomerObject(propertyUtilityA.getAllData());

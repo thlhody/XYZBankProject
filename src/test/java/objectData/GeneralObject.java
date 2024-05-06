@@ -1,8 +1,5 @@
 package objectData;
 
-import org.openqa.selenium.Alert;
-import propertyUtility.PropertyUtility;
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -31,27 +31,28 @@ public class CustomersListPage extends BasePage {
         clickMethods.clickBttNormal(searchCustomerBy);
         inputMethods.inputText(searchCustomerBy, text);
         LoggerUtility.infoTest("User enters search Customer: " + text);
-        waitMethod.waitToSee();
     }
 
     public void deleteCustomer() {
         clickMethods.clickBttNormal(deleteSearchedCustomer);
-        waitMethod.waitToSee();
     }
 
     public void searchAndDelete(AddCustomerObject addCustomerObject) {
         searchCustomer(addCustomerObject.getFirstNameValue());
         if (firstNameValue.size() == 1) {
+            LoggerUtility.infoTest("Deleted by First Name: " + addCustomerObject.getFirstNameValue());
             deleteCustomer();
         }
         inputMethods.clearField(searchCustomerBy);
         searchCustomer(addCustomerObject.getLastNameValue());
         if (lastNameValue.size() == 1) {
+            LoggerUtility.infoTest("Deleted by Last Name: " + addCustomerObject.getLastNameValue());
             deleteCustomer();
         }
         inputMethods.clearField(searchCustomerBy);
         searchCustomer(addCustomerObject.getPostCodeValue());
         if (postCodeValue.size() == 1) {
+            LoggerUtility.infoTest("Deleted by Post Code: " + addCustomerObject.getLastNameValue());
             deleteCustomer();
         }
     }

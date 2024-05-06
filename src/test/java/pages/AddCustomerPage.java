@@ -5,7 +5,6 @@ import objectData.AddCustomerObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import propertyUtility.PropertyUtility;
 
 public class AddCustomerPage extends BasePage {
     public AddCustomerPage(WebDriver webDriver) {
@@ -38,7 +37,6 @@ public class AddCustomerPage extends BasePage {
 
     public void clickAddCustomer() {
         LoggerUtility.infoTest("User waits 2 seconds before click on Add Customer Button");
-        waitMethod.waitToSee();
         clickMethods.clickBttNormal(addCustomerButton);
         LoggerUtility.infoTest("User clicks on Add Customer Button");
         alertMethods.copyAlertMesage();
