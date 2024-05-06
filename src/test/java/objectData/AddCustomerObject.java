@@ -1,18 +1,14 @@
 package objectData;
 
+import java.util.List;
 import java.util.Map;
 
-public class AddCustomerObject {
+public class AddCustomerObject extends GeneralObject {
+
     private String firstNameValue;
     private String lastNameValue;
     private String postCodeValue;
-    private String accountCurrencyDollarValue;
-    private String accountCurrencyPoundValue;
-    private String accountCurrencyRupeeValue;
-    private String accountID;
-    private String accountCurrencySelected;
-    private String accountCurrencyNumber;
-
+    private List<String> accountCurrencys;
 
     public AddCustomerObject(Map<String, String> testData) {
         prepareObject(testData);
@@ -30,23 +26,8 @@ public class AddCustomerObject {
                 case "postCodeValue":
                     setPostCodeValue(testData.get(key));
                     break;
-                case "accountCurrencyDollar":
-                    setAccountCurrencyDollarValue(testData.get(key));
-                    break;
-                case "accountCurrencyPound":
-                    setAccountCurrencyPoundValue(testData.get(key));
-                    break;
-                case "accountCurrencyRupee":
-                    setAccountCurrencyRupeeValue(testData.get(key));
-                    break;
-                case "accountID":
-                    setAccountCurrencyDollarValue(testData.get(key));
-                    break;
-                case "accountCurrencySelected":
-                    setAccountCurrencyPoundValue(testData.get(key));
-                    break;
-                case "accountCurrencyNumber":
-                    setAccountCurrencyRupeeValue(testData.get(key));
+                case "accountCurrencys":
+                    accountCurrencys = getPreparedValue(testData.get(key));
                     break;
             }
         }
@@ -76,51 +57,11 @@ public class AddCustomerObject {
         this.postCodeValue = postCodeValue;
     }
 
-    public String getAccountCurrencyDollarValue() {
-        return accountCurrencyDollarValue;
+    public List<String> getAccountCurrencys() {
+        return accountCurrencys;
     }
 
-    public void setAccountCurrencyDollarValue(String accountCurrencyDollarValue) {
-        this.accountCurrencyDollarValue = accountCurrencyDollarValue;
-    }
-
-    public String getAccountCurrencyPoundValue() {
-        return accountCurrencyPoundValue;
-    }
-
-    public void setAccountCurrencyPoundValue(String accountCurrencyPoundValue) {
-        this.accountCurrencyPoundValue = accountCurrencyPoundValue;
-    }
-
-    public String getAccountCurrencyRupeeValue() {
-        return accountCurrencyRupeeValue;
-    }
-
-    public void setAccountCurrencyRupeeValue(String accountCurrencyRupeeValue) {
-        this.accountCurrencyRupeeValue = accountCurrencyRupeeValue;
-    }
-
-    public String getAccountID() {
-        return accountID;
-    }
-
-    public void setAccountID(String accountID) {
-        this.accountID = accountID;
-    }
-
-    public String getAccountCurrencySelected() {
-        return accountCurrencySelected;
-    }
-
-    public void setAccountCurrencySelected(String accountCurrencySelected) {
-        this.accountCurrencySelected = accountCurrencySelected;
-    }
-
-    public String getAccountCurrencyNumber() {
-        return accountCurrencyNumber;
-    }
-
-    public void setAccountCurrencyNumber(String accountCurrencyNumber) {
-        this.accountCurrencyNumber = accountCurrencyNumber;
+    public void setAccountCurrencys(List<String> accountCurrencys) {
+        this.accountCurrencys = accountCurrencys;
     }
 }

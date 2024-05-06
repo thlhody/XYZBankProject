@@ -14,7 +14,7 @@ public class Hooks extends SharedData {
         testName = this.getClass().getSimpleName();
         LoggerUtility.startTestCase(testName);
         prepareDriver();
-        LoggerUtility.infoTest("The driver is opened with succes");
+        LoggerUtility.infoTest("The driver is opened with succes!");
 
     }
 
@@ -25,7 +25,7 @@ public class Hooks extends SharedData {
         }
         testName = this.getClass().getSimpleName();
         clearData();
-        LoggerUtility.infoTest("The driver is closed with succes");
+        LoggerUtility.infoTest("The driver is closed with succes!");
         LoggerUtility.finishTestCase(testName);
     }
 }

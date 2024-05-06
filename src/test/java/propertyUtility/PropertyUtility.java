@@ -1,6 +1,7 @@
 package propertyUtility;
 
 import loggerUtility.LoggerUtility;
+import objectData.AddCustomerObject;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -16,6 +17,7 @@ public class PropertyUtility {
     private String filePath;
 
     public PropertyUtility(String path) {
+
         this.filePath = "src/test/resources/inputData/" + path + ".properties";
         loadFile(path);
     }
@@ -40,11 +42,11 @@ public class PropertyUtility {
 
     public void updateFile(String key, String value) {
         try {
-            fileOutputStream = new FileOutputStream(filePath);
-            fileInputStream = new FileInputStream(filePath);
-            properties.load(fileInputStream);
-            properties.setProperty(key, value);
-            properties.store(fileOutputStream, null);
+                fileOutputStream = new FileOutputStream(filePath);
+                fileInputStream = new FileInputStream(filePath);
+                properties.load(fileInputStream);
+                properties.setProperty(key, value);
+                properties.store(fileOutputStream, null);
 
         } catch (Exception e) {
             LoggerUtility.errorTestCase(e.getMessage());

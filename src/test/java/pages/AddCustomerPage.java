@@ -5,6 +5,7 @@ import objectData.AddCustomerObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import propertyUtility.PropertyUtility;
 
 public class AddCustomerPage extends BasePage {
     public AddCustomerPage(WebDriver webDriver) {
@@ -22,21 +23,21 @@ public class AddCustomerPage extends BasePage {
 
     public void fillFirstName(String firstNameValue) {
         inputMethods.inputText(addFirstNameElement, firstNameValue);
-        LoggerUtility.infoTest("User enter First Name Value:  "+firstNameValue);
+        LoggerUtility.infoTest("User enter First Name Value:  " + firstNameValue);
     }
 
     public void fillLastName(String lastNameValue) {
         inputMethods.inputText(addLastNameElement, lastNameValue);
-        LoggerUtility.infoTest("User enters Last Name Value:  "+lastNameValue);
+        LoggerUtility.infoTest("User enters Last Name Value:  " + lastNameValue);
     }
 
     public void fillPostalCode(String postCodeValue) {
         inputMethods.inputText(addPostCodeElement, postCodeValue);
-        LoggerUtility.infoTest("User enter Post Code Value:  "+postCodeValue);
+        LoggerUtility.infoTest("User enter Post Code Value:  " + postCodeValue);
     }
 
     public void clickAddCustomer() {
-        LoggerUtility.infoTest("User waits 5 seconds before click on Add Customer Button");
+        LoggerUtility.infoTest("User waits 2 seconds before click on Add Customer Button");
         waitMethod.waitToSee();
         clickMethods.clickBttNormal(addCustomerButton);
         LoggerUtility.infoTest("User clicks on Add Customer Button");
@@ -44,11 +45,12 @@ public class AddCustomerPage extends BasePage {
         alertMethods.acceptAlert();
     }
 
-    public void fillAllData (AddCustomerObject addCustomerObject){
+    public void fillAllData(AddCustomerObject addCustomerObject) {
         fillFirstName(addCustomerObject.getFirstNameValue());
         fillLastName(addCustomerObject.getLastNameValue());
         fillPostalCode(addCustomerObject.getPostCodeValue());
         clickAddCustomer();
+
     }
 
 }

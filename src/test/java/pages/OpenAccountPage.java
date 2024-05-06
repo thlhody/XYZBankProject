@@ -5,7 +5,6 @@ import objectData.AddCustomerObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
 
 public class OpenAccountPage extends BasePage {
     public WebDriver webDriver;
@@ -39,14 +38,15 @@ public class OpenAccountPage extends BasePage {
         clickMethods.clickBttNormal(clickProcessButton);
         LoggerUtility.infoTest("User presses the Process Button");
         alertMethods.copyAlertMesage();
+        waitMethod.waitToSee();
         alertMethods.acceptAlert();
-        LoggerUtility.infoTest("User account created with ");
-
     }
 
     public void openAccount(AddCustomerObject addCustomerObject) {
-        selectCustomer(addCustomerObject.getFirstNameValue() + " " + addCustomerObject.getLastNameValue());
-        selectCurrency(addCustomerObject.getAccountCurrencyDollarValue());
-        pressProcess();
+        for (String currency : addCustomerObject.getAccountCurrencys()) {
+            selectCustomer(addCustomerObject.getFirstNameValue() + " " + addCustomerObject.getLastNameValue());
+            selectCurrency(currency);
+            pressProcess();
+        }
     }
 }

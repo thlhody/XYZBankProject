@@ -11,6 +11,7 @@ import java.time.Duration;
 
 public class AlertMethods {
     private WebDriver webDriver;
+    private Integer nextNumber=0;
 
     public AlertMethods(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -19,23 +20,30 @@ public class AlertMethods {
     public void copyAlertMesage() {
         Alert alert = webDriver.switchTo().alert();
         String alertText = alert.getText();
-        LoggerUtility.infoTest(alertText);
-        PropertyUtility pU = new PropertyUtility("AddCustomerDataTemp");
+        PropertyUtility propertyUtility = new PropertyUtility("AddCustomerDataTemp");
+
         if (alertText.contains("customer id")) {
-            String alertInfo = alertText.replaceAll("Customer added successfully with customer id :", "");
-            pU.updateFile("accountID", alertInfo);
-            LoggerUtility.infoTest(alertInfo);
+            String accountInfo = alertText.split(":")[1].trim();
+            propertyUtility.updateFile("CustomerID", accountInfo);
+            LoggerUtility.infoTest("Temp properties file updated with Customer ID=" + accountInfo);
         }
         if (alertText.contains("Number")) {
-            String alertInfoA = alertText.replaceAll("Account created successfully with account Number :", "");
-            pU.updateFile("accountCurrencyNumber", alertInfoA);
-            LoggerUtility.infoTest(alertInfoA);
+            String accountInfoNr = alertText.split(":")[1].trim();
+            Integer counter = counter();
+            propertyUtility.updateFile("NumberAccount"+counter, accountInfoNr);
+            LoggerUtility.infoTest("Temp properties file updated with number Account"+counter+"=" + accountInfoNr);
         }
+    }
+
+    public int counter ( ){
+
+        int currentNumber = nextNumber;
+        nextNumber = nextNumber %3+1;
+        return currentNumber;
     }
 
     public void acceptAlert() {
         Alert alert = webDriver.switchTo().alert();
-        LoggerUtility.infoTest(alert.getText());
         alert.accept();
     }
 
@@ -43,4 +51,5 @@ public class AlertMethods {
         WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.alertIsPresent());
     }
+
 }
