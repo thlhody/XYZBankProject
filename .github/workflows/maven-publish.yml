@@ -40,4 +40,4 @@ jobs:
         with:
           name: SuiteResults
           path: |
-            target/logs/suite.log
+            target/logs/suitetest.log
