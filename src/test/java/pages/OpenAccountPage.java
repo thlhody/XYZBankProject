@@ -5,6 +5,10 @@ import objectData.AddCustomerObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import propertyUtility.PropertyUtility;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class OpenAccountPage extends BasePage {
     public WebDriver webDriver;
@@ -19,11 +23,15 @@ public class OpenAccountPage extends BasePage {
     private WebElement selectCurrencyElement;
     @FindBy(xpath = "//button[text()='Process']")
     private WebElement clickProcessButton;
+    @FindBy(xpath = "//*[@id='userSelect']/option")
+    private List<WebElement> findByUserID;
 
-    public void selectCustomer(String text) {
+    public void selectCustomer(String value) {
         clickMethods.clickBttNormal(selectCustomerElement);
-        inputMethods.inputText(selectCustomerElement, text);
-        LoggerUtility.infoTest("User enters Customer: " + text);
+        PropertyUtility pU = new PropertyUtility("AddCustomerDataTemp");
+        Integer customerIDnr = Integer.valueOf(pU.getAllData().get("CustomerID"));
+        clickMethods.clickBttNormal(findByUserID.get(customerIDnr));
+        LoggerUtility.infoTest("User enters Customer: "+ value+"_ID_"+customerIDnr);
         waitMethod.waitToSee();
     }
 
@@ -41,6 +49,7 @@ public class OpenAccountPage extends BasePage {
         waitMethod.waitToSee();
         alertMethods.acceptAlert();
     }
+
 
     public void openAccount(AddCustomerObject addCustomerObject) {
         for (String currency : addCustomerObject.getAccountCurrencys()) {

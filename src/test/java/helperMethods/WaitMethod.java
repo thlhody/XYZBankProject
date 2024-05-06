@@ -13,7 +13,7 @@ public class WaitMethod extends Hooks {
 
     public void waitToSee() {
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (Exception e) {
             LoggerUtility.errorTestCase(e.getMessage());
         }

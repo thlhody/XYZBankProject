@@ -12,6 +12,10 @@ public class InputMethods {
 
     public void inputText(WebElement element, String text) {
         element.sendKeys(text);
+    }
 
+    public void clearField(WebElement element) {
+        element.clear();
     }
 }
+

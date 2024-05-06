@@ -11,7 +11,7 @@ import java.time.Duration;
 
 public class AlertMethods {
     private WebDriver webDriver;
-    private Integer nextNumber=0;
+    private Integer nextNumber = 0;
 
     public AlertMethods(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -30,15 +30,14 @@ public class AlertMethods {
         if (alertText.contains("Number")) {
             String accountInfoNr = alertText.split(":")[1].trim();
             Integer counter = counter();
-            propertyUtility.updateFile("NumberAccount"+counter, accountInfoNr);
-            LoggerUtility.infoTest("Temp properties file updated with number Account"+counter+"=" + accountInfoNr);
+            propertyUtility.updateFile("NumberAccount" + counter, accountInfoNr);
+            LoggerUtility.infoTest("Temp properties file updated with number Account" + counter + "=" + accountInfoNr);
         }
     }
 
-    public int counter ( ){
-
+    public int counter() {
         int currentNumber = nextNumber;
-        nextNumber = nextNumber %3+1;
+        nextNumber = nextNumber % 3 + 1;
         return currentNumber;
     }
 
