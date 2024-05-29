@@ -36,7 +36,6 @@ public class AddCustomerPage extends BasePage {
     }
 
     public void clickAddCustomer() {
-        LoggerUtility.infoTest("User waits 2 seconds before click on Add Customer Button");
         clickMethods.clickBttNormal(addCustomerButton);
         LoggerUtility.infoTest("User clicks on Add Customer Button");
         alertMethods.copyAlertMesage();

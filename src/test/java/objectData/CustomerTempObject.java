@@ -1,7 +1,12 @@
 package objectData;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Map;
 
+@Getter
+@Setter
 public class CustomerTempObject {
     private String accountID;
     private String NumberAccount0;
@@ -29,37 +34,5 @@ public class CustomerTempObject {
                     break;
             }
         }
-    }
-
-    public String getAccountID() {
-        return accountID;
-    }
-
-    public void setAccountID(String accountID) {
-        this.accountID = accountID;
-    }
-
-    public String getNumberAccount0() {
-        return NumberAccount0;
-    }
-
-    public void setNumberAccount0(String numberAccount0) {
-        this.NumberAccount0 = numberAccount0;
-    }
-
-    public String getNumberAccount1() {
-        return NumberAccount1;
-    }
-
-    public void setNumberAccount1(String numberAccount1) {
-        this.NumberAccount1 = numberAccount1;
-    }
-
-    public String getNumberAccount2() {
-        return NumberAccount2;
-    }
-
-    public void setNumberAccount2(String numberAccount2) {
-        this.NumberAccount2 = numberAccount2;
     }
 }

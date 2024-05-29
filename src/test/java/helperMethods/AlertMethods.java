@@ -22,7 +22,7 @@ public class AlertMethods {
         String alertText = alert.getText();
         PropertyUtility propertyUtility = new PropertyUtility("AddCustomerDataTemp");
 
-        if (alertText.contains("customer id")) {
+        if (alertText.contains("customer id")) {//se poate simplifica
             String accountInfo = alertText.split(":")[1].trim();
             propertyUtility.updateFile("CustomerID", accountInfo);
             LoggerUtility.infoTest("Temp properties file updated with Customer ID=" + accountInfo);

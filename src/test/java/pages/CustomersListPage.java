@@ -6,8 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import java.util.List;
-
 public class CustomersListPage extends BasePage {
 
     private WebDriver webDriver;
@@ -20,12 +18,7 @@ public class CustomersListPage extends BasePage {
     private WebElement searchCustomerBy;
     @FindBy(css = "button[ng-click='deleteCust(cust)'")
     private WebElement deleteSearchedCustomer;
-    @FindBy(xpath = "//table/tbody/tr/td[1]")
-    private List<WebElement> firstNameValue;
-    @FindBy(xpath = "//table/tbody/tr/td[2]")
-    private List<WebElement> lastNameValue;
-    @FindBy(xpath = "//table/tbody/tr/td[3]")
-    private List<WebElement> postCodeValue;
+
 
     public void searchCustomer(String text) {
         clickMethods.clickBttNormal(searchCustomerBy);
@@ -38,22 +31,7 @@ public class CustomersListPage extends BasePage {
     }
 
     public void searchAndDelete(AddCustomerObject addCustomerObject) {
-        searchCustomer(addCustomerObject.getFirstNameValue());
-        if (firstNameValue.size() == 1) {
-            LoggerUtility.infoTest("Deleted by First Name: " + addCustomerObject.getFirstNameValue());
-            deleteCustomer();
-        }
-        inputMethods.clearField(searchCustomerBy);
-        searchCustomer(addCustomerObject.getLastNameValue());
-        if (lastNameValue.size() == 1) {
-            LoggerUtility.infoTest("Deleted by Last Name: " + addCustomerObject.getLastNameValue());
-            deleteCustomer();
-        }
-        inputMethods.clearField(searchCustomerBy);
         searchCustomer(addCustomerObject.getPostCodeValue());
-        if (postCodeValue.size() == 1) {
-            LoggerUtility.infoTest("Deleted by Post Code: " + addCustomerObject.getLastNameValue());
-            deleteCustomer();
-        }
-    }
+        deleteCustomer();
+     }
 }

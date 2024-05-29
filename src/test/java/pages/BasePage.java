@@ -23,4 +23,5 @@ public class BasePage {
         selectMethods = new SelectMethods(webDriver);
         PageFactory.initElements(webDriver, this);
     }
+
 }
