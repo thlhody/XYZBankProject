@@ -33,5 +33,6 @@ public class CustomersListPage extends BasePage {
     public void searchAndDelete(AddCustomerObject addCustomerObject) {
         searchCustomer(addCustomerObject.getPostCodeValue());
         deleteCustomer();
+        LoggerUtility.infoTest("User enters deletes Customer: " + addCustomerObject.getCustomerFullName());
      }
 }

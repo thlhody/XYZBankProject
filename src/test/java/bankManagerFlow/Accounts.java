@@ -3,6 +3,7 @@ package bankManagerFlow;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Map;
 
 @Getter
@@ -11,10 +12,10 @@ public class Accounts {
 
     public Integer customerId;
 
-    public Map<String, String> currencyAccountMap;
+    public Map<String, List<Integer>> currencyAccountMap;
 
 
-    public Accounts(Integer customerId, Map<String, String> currencyAccountMap) {
+    public Accounts(Integer customerId, Map<String, List<Integer>> currencyAccountMap) {
         this.customerId = customerId;
         this.currencyAccountMap = currencyAccountMap;
     }

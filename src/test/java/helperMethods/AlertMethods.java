@@ -1,44 +1,31 @@
 package helperMethods;
 
-import loggerUtility.LoggerUtility;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import propertyUtility.PropertyUtility;
 
 import java.time.Duration;
 
 public class AlertMethods {
     private WebDriver webDriver;
-    private Integer nextNumber = 0;
 
     public AlertMethods(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
 
-    public void copyAlertMesage() {
+    public String extractedAlertString() {
         Alert alert = webDriver.switchTo().alert();
         String alertText = alert.getText();
-        PropertyUtility propertyUtility = new PropertyUtility("AddCustomerDataTemp");
-
-        if (alertText.contains("customer id")) {//se poate simplifica
-            String accountInfo = alertText.split(":")[1].trim();
-            propertyUtility.updateFile("CustomerID", accountInfo);
-            LoggerUtility.infoTest("Temp properties file updated with Customer ID=" + accountInfo);
-        }
-        if (alertText.contains("Number")) {
-            String accountInfoNr = alertText.split(":")[1].trim();
-            Integer counter = counter();
-            propertyUtility.updateFile("NumberAccount" + counter, accountInfoNr);
-            LoggerUtility.infoTest("Temp properties file updated with number Account" + counter + "=" + accountInfoNr);
-        }
+        String alertInfo = alertText.split(":")[1].trim();
+        return alertInfo;
     }
 
-    public int counter() {
-        int currentNumber = nextNumber;
-        nextNumber = nextNumber % 3 + 1;
-        return currentNumber;
+    public Integer extractedAlertInteger() {
+        Alert alert = webDriver.switchTo().alert();
+        String alertText = alert.getText();
+        Integer accountID = Integer.parseInt(alertText.split(":")[1].trim());
+        return accountID;
     }
 
     public void acceptAlert() {

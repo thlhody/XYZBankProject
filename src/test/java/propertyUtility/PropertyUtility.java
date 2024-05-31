@@ -39,17 +39,4 @@ public class PropertyUtility {
         }
         return testData;
     }
-
-    public void updateFile(String key, String value) {
-        try {
-                fileOutputStream = new FileOutputStream(filePath);
-                fileInputStream = new FileInputStream(filePath);
-                properties.load(fileInputStream);
-                properties.setProperty(key, value);
-                properties.store(fileOutputStream, null);
-
-        } catch (Exception e) {
-            LoggerUtility.errorTestCase(e.getMessage());
-        }
-    }
 }

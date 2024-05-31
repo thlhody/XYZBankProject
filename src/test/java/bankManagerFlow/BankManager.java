@@ -2,6 +2,7 @@ package bankManagerFlow;
 
 import lombok.Getter;
 import lombok.Setter;
+import objectData.AddCustomerObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +11,9 @@ import java.util.List;
 @Getter
 public class BankManager {
 
-    public List<Customer> customers = new ArrayList<>();
+    public List<AddCustomerObject> customers = new ArrayList<>();
 
-    public BankManager(List<Customer> customers) {
+    public BankManager(List<AddCustomerObject> customers) {
         this.customers = customers;
     }
 }

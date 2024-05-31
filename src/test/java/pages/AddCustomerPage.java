@@ -38,8 +38,6 @@ public class AddCustomerPage extends BasePage {
     public void clickAddCustomer() {
         clickMethods.clickBttNormal(addCustomerButton);
         LoggerUtility.infoTest("User clicks on Add Customer Button");
-        alertMethods.copyAlertMesage();
-        alertMethods.acceptAlert();
     }
 
     public void fillAllData(AddCustomerObject addCustomerObject) {
@@ -47,7 +45,7 @@ public class AddCustomerPage extends BasePage {
         fillLastName(addCustomerObject.getLastNameValue());
         fillPostalCode(addCustomerObject.getPostCodeValue());
         clickAddCustomer();
-
+        addCustomerObject.setCustomerId(alertMethods.extractedAlertInteger());
+        alertMethods.acceptAlert();
     }
-
 }

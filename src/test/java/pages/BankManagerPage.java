@@ -29,7 +29,7 @@ public class BankManagerPage extends BasePage {
 
     public void navigateToCustomersPage() {
         clickMethods.clickBttNormal(showCustomerButton);
-        LoggerUtility.infoTest("User clicks on Show Cusomer Button!");
+        LoggerUtility.infoTest("User clicks on Show Customer Button!");
     }
 
 }

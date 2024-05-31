@@ -5,12 +5,11 @@ import objectData.AddCustomerObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import propertyUtility.PropertyUtility;
 
 import java.util.List;
+import java.util.Map;
 
 public class OpenAccountPage extends BasePage {
-    public WebDriver webDriver;
 
     public OpenAccountPage(WebDriver webDriver) {
         super(webDriver);
@@ -19,39 +18,43 @@ public class OpenAccountPage extends BasePage {
     @FindBy(id = "userSelect")
     private WebElement selectCustomerElement;
     @FindBy(id = "currency")
-    private WebElement selectCurrencyElement;
+    private WebElement currencyDropdown;
     @FindBy(xpath = "//button[text()='Process']")
     private WebElement clickProcessButton;
     @FindBy(xpath = "//*[@id='userSelect']/option")
-    private List<WebElement> findByUserID;
+    private List<WebElement> findUserByID;
 
     public void selectCustomer(String value) {
         clickMethods.clickBttNormal(selectCustomerElement);
-        PropertyUtility pU = new PropertyUtility("AddCustomerDataTemp");
-        Integer customerIDnr = Integer.valueOf(pU.getAllData().get("CustomerID"));
-        clickMethods.clickBttNormal(findByUserID.get(customerIDnr));
-        LoggerUtility.infoTest("User enters Customer " + value + " with ID " + customerIDnr);
+        for(WebElement userOption : findUserByID){
+            if(userOption.getText().contains(value)){
+                userOption.click();
+                break;
+            }
+        }
+        LoggerUtility.infoTest("User enters Customer " + value);
     }
 
-    public void selectCurrency(String text) {
-        clickMethods.clickBttNormal(selectCurrencyElement);
-        inputMethods.inputText(selectCurrencyElement, text);
-        LoggerUtility.infoTest("User selects Currency: " + text);
+    public void selectCurrency(String currency) {
+        clickMethods.clickBttNormal(currencyDropdown);
+        selectMethods.selectObj(currencyDropdown,currency);
+        LoggerUtility.infoTest("User selects Currency: " + currency);
     }
 
     public void pressProcess() {
         clickMethods.clickBttNormal(clickProcessButton);
         LoggerUtility.infoTest("User presses the Process Button");
-        alertMethods.copyAlertMesage();
-        alertMethods.acceptAlert();
     }
-
-
     public void openAccount(AddCustomerObject addCustomerObject) {
-        for (String currency : addCustomerObject.getAccountCurrencys()) {
-            selectCustomer(addCustomerObject.getFirstNameValue() + " " + addCustomerObject.getLastNameValue());
+        for (String currency : addCustomerObject.getInputCurrency()) {
+            selectCustomer(addCustomerObject.getCustomerFullName());
             selectCurrency(currency);
             pressProcess();
+            Integer accountNumber = alertMethods.extractedAlertInteger();
+            addCustomerObject.addAccountValue(currency,accountNumber);
+            alertMethods.acceptAlert();
         }
     }
 }
+
+
