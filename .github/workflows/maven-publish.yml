@@ -22,7 +22,7 @@ on:
         description: 'Choose the amount to deposit: 1-...'
         required: true
         default: '1000'
-      withdrawlAmount:
+      withdrawAmount:
         description: 'Choose the amount to withdraw less then the deposited amount'
         required: true
         default: '999'
@@ -44,7 +44,7 @@ jobs:
           settings-path: ${{ github.workspace }} # location for the settings.xml file
 
       - name: Update Properties
-        run: java -DtransactionCurrencies=${{ github.event.inputs.transactionCurrencies }} -DdepositAmount=${{ github.event.inputs.depositAmount }} -DwithdrawAmount=${{ github.event.inputs.withdrawlAmount }} -cp target/test-classes sharedData.transactions.Transactions
+        run: java -DtransactionCurrencies=${{ github.event.inputs.transactionCurrencies }} -DdepositAmount=${{ github.event.inputs.depositAmount }} -DwithdrawAmount=${{ github.event.inputs.withdrawAmount }} -cp target/test-classes:. sharedData.transactions.Transactions
 
       - name: Run Automation Tests
         run: mvn clean install -DcIcD=true -Dbrowser=${{ github.event.inputs.browser }} -DsuiteXmlFile=suites/${{ github.event.inputs.suite }} -PCustomSuite
