@@ -8,7 +8,6 @@ public class Transactions {
 
     public void updateTransactionProperties() {
 
-        boolean updateRequired = false;
         PropertyUtility propertyUtility = new PropertyUtility("TransactionDataA");
         Map<String, String> transcationData = propertyUtility.getAllData();
 

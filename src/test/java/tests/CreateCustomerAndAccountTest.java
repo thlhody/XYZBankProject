@@ -45,7 +45,7 @@ public class CreateCustomerAndAccountTest extends Hooks {
         Transactions transactions = new Transactions();
         transactions.updateTransactionProperties();
 
-        PropertyUtility propertyUtilityB = new PropertyUtility("TransactionDataA.properties");
+        PropertyUtility propertyUtilityB = new PropertyUtility("TransactionDataA");
         TransactionsObject transactionsObject = new TransactionsObject(propertyUtilityB.getAllData());
         UserPage userPage = new UserPage(getWebDriver());
         userPage.depositAndWithdrawl(addCustomerObjectA,transactionsObject);
