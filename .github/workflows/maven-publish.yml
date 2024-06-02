@@ -44,7 +44,7 @@ jobs:
           settings-path: ${{ github.workspace }} # location for the settings.xml file
 
       - name: Update Properties
-        run: java -cp target/myapp.jar sharedData.transactions.Transactions ${{ github.event.inputs.transactionCurrencies }} ${{ github.event.inputs.depositAmount }} ${{ github.event.inputs.withdrawlAmount }}
+        run: java -DtransactionCurrencies=${{ github.event.inputs.transactionCurrencies }} -DdepositAmount=${{ github.event.inputs.depositAmount }} -DwithdrawAmount=${{ github.event.inputs.withdrawlAmount }} -cp target/test-classes sharedData.transactions.Transactions
 
       - name: Run Automation Tests
         run: mvn clean install -DcIcD=true -Dbrowser=${{ github.event.inputs.browser }} -DsuiteXmlFile=suites/${{ github.event.inputs.suite }} -PCustomSuite
