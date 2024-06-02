@@ -42,21 +42,25 @@ public class CreateCustomerAndAccountTest extends Hooks {
         CustomerSelectPage customerSelectPage = new CustomerSelectPage(getWebDriver());
         customerSelectPage.selectUserByName(addCustomerObjectA);
 
-        PropertyUtility propertyUtilityB = new PropertyUtility("TransactionDataA");
-        Transactions transactions = new Transactions();
-        transactions.updateTransactionProperties(propertyUtilityB.getAllData());
 
+
+
+        viewAccountList(addCustomerObjectA);
         PropertyUtility propertyUtilityC = new PropertyUtility("TransactionDataA");
         TransactionsObject transactionsObject = new TransactionsObject(propertyUtilityC.getAllData());
+        Transactions transactions = new Transactions();
+        transactions.updateTransactionProperties(transactionsObject);
         UserPage userPage = new UserPage(getWebDriver());
         userPage.depositAndWithdrawl(addCustomerObjectA,transactionsObject);
 
         //deschid pagina Customers si sterg contul creat
-//        bankMP.navigateToCustomersPage();
-//        CustomersListPage customersListPage = new CustomersListPage(getWebDriver());
-//        customersListPage.searchAndDelete(addCustomerObjectA);
+        homePage.navigateToHomePage();
+        homePage.navigateToManagerPage();
+        bankMP.navigateToCustomersPage();
+        CustomersListPage customersListPage = new CustomersListPage(getWebDriver());
+        customersListPage.searchAndDelete(addCustomerObjectA);
 
-        viewAccountList(addCustomerObjectA);
+
     }
 
 
@@ -74,8 +78,8 @@ public class CreateCustomerAndAccountTest extends Hooks {
 
             if(accountValues != null && !accountValues.isEmpty()){
                 System.out.println("Account values for " + bani + ":");
-                for(int i=0; i<accountValues.size(); i++) {
-                    System.out.print(","+ accountValues.get(i));
+                for (String accountValue : accountValues) {
+                    System.out.print("," + accountValue);
                 }
                 System.out.println();
             }else{

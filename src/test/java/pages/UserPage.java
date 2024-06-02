@@ -7,11 +7,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UserPage extends BasePage{
+public class UserPage extends BasePage {
     public UserPage(WebDriver webDriver) {
         super(webDriver);
     }
@@ -33,47 +32,54 @@ public class UserPage extends BasePage{
     @FindBy(id = "accountSelect")
     private WebElement accountDropdown;
 
+    public void selectAccountNumber(String accNr, String currency) {
+        clickMethods.clickBttNormal(accountDropdown);
+        selectMethods.selectObj(accountDropdown, accNr);
+        LoggerUtility.infoTest("User selects Currency "+currency+" Account Number " + accNr);
+    }
+
     public void depositCurrency() {
         clickMethods.clickBttNormal(depositButton);
         LoggerUtility.infoTest("User clicks on Deposit Button!");
     }
-    public void withdrawlCurrency(){
+
+    public void withdrawCurrency() {
         clickMethods.clickBttNormal(withdrawlButton);
         LoggerUtility.infoTest("User clicks on Withdrawl Button!");
     }
+
+    public void enterAmount(String amount) {
+        clickMethods.clickBttNormal(enterAmountElement);
+        inputMethods.inputText(enterAmountElement, amount);
+        clickMethods.clickBttNormal(submitAmount);
+        LoggerUtility.infoTest("User entered amount: " + amount);
+    }
+
     public void navigateToTransactionsPage() {
         clickMethods.clickBttNormal(transactionButton);
         LoggerUtility.infoTest("User clicks on Deposit Button!");
     }
-    public void enterAmount(String amount) {
-        clickMethods.clickBttNormal(enterAmountElement);
-        inputMethods.inputText(enterAmountElement,amount);
-        clickMethods.clickBttNormal(submitAmount);
-        LoggerUtility.infoTest("User entered amount: "+amount);
-    }
-    public void selectAccountNumber(String currency) {
-        clickMethods.clickBttNormal(accountDropdown);
-        selectMethods.selectObj(accountDropdown,currency);
-        LoggerUtility.infoTest("User selects Currency: " + currency);
-    }
 
-    public void depositAndWithdrawl(AddCustomerObject addCustomerObject, TransactionsObject transactionsObject){
-        Map<String, List<String>> accountsCurrencyMap = addCustomerObject.getAccountsCurrencyMap();
-        List<String> currencies = transactionsObject.getTransactionCurrencys();
-        String amountDeposit = transactionsObject.getDepositAmount();
-        String amountWithdraw = transactionsObject.getWithdrawAmount();
-        for(String currency : currencies){
+
+    public void depositAndWithdrawl(AddCustomerObject addCustomerObject, TransactionsObject transactionsObject) {
+        Map<String, List<String>> accountsCurrencyMap = addCustomerObject.getAccountsCurrencyMap();// preia conturile din addCustomerObject
+        List<String> currencies = transactionsObject.getTransactionCurrencies(); // preia valuta din property file
+        String amountDeposit = transactionsObject.getDepositAmount(); // preia suma pentru deposit din property file
+        String amountWithdraw = transactionsObject.getWithdrawAmount(); // preia suma pentru retragere din property file
+        for (String currency : currencies) {
             List<String> accountDetails = accountsCurrencyMap.get(currency);
-            if (!accountDetails.isEmpty()){
-                String accountNumber = accountDetails.get(1);
-                selectAccountNumber(accountNumber);
+            if (!accountDetails.isEmpty()) {
+                String accountNumber = accountDetails.get(0);
+                selectAccountNumber(accountNumber, currency);
                 waitMethod.waitToSee();
                 depositCurrency();
+                waitMethod.waitToSee();
                 enterAmount(amountDeposit);
                 waitMethod.waitToSee();
-                withdrawlCurrency();
+                withdrawCurrency();
                 waitMethod.waitToSee();
                 enterAmount(amountWithdraw);
+                waitMethod.waitToSee();
             } else {
                 System.out.println("Account info not found!");
             }

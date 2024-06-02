@@ -12,7 +12,7 @@ public class TransactionsObject extends GeneralObject{
 
     private String depositAmount;
     private String withdrawAmount;
-    private List<String> transactionCurrencys;
+    private List<String> transactionCurrencies;
 
 
     public TransactionsObject(Map<String, String> testData) {
@@ -29,7 +29,7 @@ public class TransactionsObject extends GeneralObject{
                     setWithdrawAmount(testData.get(key));
                     break;
                 case "transactionCurrencies":
-                    transactionCurrencys = getPreparedValue(testData.get(key));
+                    transactionCurrencies = getPreparedValue(testData.get(key));
                     break;
             }
         }
