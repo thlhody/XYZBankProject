@@ -65,7 +65,7 @@ public class UserPage extends BasePage{
         for(String currency : currencies){
             List<String> accountDetails = accountsCurrencyMap.get(currency);
             if (!accountDetails.isEmpty()){
-                String accountNumber = accountDetails.get(0);
+                String accountNumber = accountDetails.get(1);
                 selectAccountNumber(accountNumber);
                 waitMethod.waitToSee();
                 depositCurrency();
