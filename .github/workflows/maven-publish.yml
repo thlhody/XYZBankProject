@@ -43,11 +43,8 @@ jobs:
           server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
           settings-path: ${{ github.workspace }} # location for the settings.xml file
 
-      - name: Update Properties
-        run: java -DtransactionCurrencies=${{ github.event.inputs.transactionCurrencies }} -DdepositAmount=${{ github.event.inputs.depositAmount }} -DwithdrawAmount=${{ github.event.inputs.withdrawAmount }} -cp target/test-classes:. sharedData.transactions.Transactions
-
       - name: Run Automation Tests
-        run: mvn clean install -DcIcD=true -Dbrowser=${{ github.event.inputs.browser }} -DsuiteXmlFile=suites/${{ github.event.inputs.suite }} -PCustomSuite
+        run: mvn clean install -DcIcD=true -DtransactionCurrencies=${{ github.event.inputs.transactionCurrencies }} -DdepositAmount=${{ github.event.inputs.depositAmount }} -DwithdrawAmount=${{ github.event.inputs.withdrawAmount }} -Dbrowser=${{ github.event.inputs.browser }} -DsuiteXmlFile=suites/${{ github.event.inputs.suite }} -PCustomSuite
 
       - name: Publish suite results
         if: always()
