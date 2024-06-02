@@ -22,13 +22,13 @@ public class TransactionsObject extends GeneralObject{
     private void prepareObject(Map<String, String> testData) {
         for (String key : testData.keySet()) {
             switch (key) {
-                case "deposit":
+                case "depositAmount":
                     setDepositAmount(testData.get(key));
                     break;
-                case "withdraw":
+                case "withdrawAmount":
                     setWithdrawAmount(testData.get(key));
                     break;
-                case "transactionCurrencys":
+                case "transactionCurrencies":
                     transactionCurrencys = getPreparedValue(testData.get(key));
                     break;
             }
