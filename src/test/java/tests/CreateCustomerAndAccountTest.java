@@ -42,8 +42,8 @@ public class CreateCustomerAndAccountTest extends Hooks {
         CustomerSelectPage customerSelectPage = new CustomerSelectPage(getWebDriver());
         customerSelectPage.selectUserByName(addCustomerObjectA);
 
-//        Transactions transactions = new Transactions();
-//        transactions.updateTransactionProperties();
+        Transactions transactions = new Transactions();
+        transactions.updateTransactionProperties();
 
         PropertyUtility propertyUtilityB = new PropertyUtility("TransactionDataA");
         TransactionsObject transactionsObject = new TransactionsObject(propertyUtilityB.getAllData());
