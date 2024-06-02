@@ -1,26 +1,30 @@
 package sharedData.transactions;
 
+import loggerUtility.LoggerUtility;
+import objectData.GeneralObject;
+import objectData.TransactionsObject;
 import propertyUtility.PropertyUtility;
 
+import java.util.List;
 import java.util.Map;
 
-public class Transactions {
+public class Transactions extends GeneralObject {
 
-    public void updateTransactionProperties() {
+    public void updateTransactionProperties(Map<String, String> transactionData) {
 
-        PropertyUtility propertyUtility = new PropertyUtility("TransactionDataA");
-        Map<String, String> transactionData = propertyUtility.getAllData();
 
         String transactionCurrencies = System.getProperty("transactionCurrencies");
         String depositAmount = System.getProperty("depositAmount");
         String withdrawAmount = System.getProperty("withdrawAmount");
-        if (transactionData.isEmpty() && transactionCurrencies != null && depositAmount != null && withdrawAmount != null) {
-            transactionData.put("transactionCurrencies", transactionCurrencies);
-            transactionData.put("depositAmount", depositAmount);
-            transactionData.put("withdrawAmount", withdrawAmount);
+        TransactionsObject transactionsObject = new TransactionsObject(transactionData);
+        LoggerUtility.infoTest("update"+ depositAmount+"  "+withdrawAmount);
 
-            propertyUtility.updateFile(transactionData);
+        String cIcD = System.getProperty("cIcD");
+
+        if (Boolean.parseBoolean(cIcD)) {
+            transactionsObject.setDepositAmount(depositAmount);
+            transactionsObject.setWithdrawAmount(withdrawAmount);
+            transactionsObject.setTransactionCurrencys(getPreparedValue(transactionCurrencies));
         }
-        propertyUtility.updateFile(transactionData);
     }
 }
