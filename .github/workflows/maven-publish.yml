@@ -14,6 +14,18 @@ on:
         description: 'Choose Suite: FeaturesSuite, RegressionSuite'
         required: true
         default: 'RegressionSuite'
+      transactionCurrencies:
+        description: 'Choose Currencies(1 or more): Dollar,Rupee,Pound'
+        required: true
+        default: 'Dollar,Rupee,Pound'
+      depositAmount:
+        description: 'Choose the amount to deposit: 1-...'
+        required: true
+        default: '1000'
+      withdrawlAmount:
+        description: 'Choose the amount to withdraw less then the deposited amount'
+        required: true
+        default: '999'
 
 jobs:
   build:
@@ -30,6 +42,9 @@ jobs:
           distribution: 'temurin'
           server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
           settings-path: ${{ github.workspace }} # location for the settings.xml file
+
+      - name: Update Properties
+        run: java -cp target/myapp.jar sharedData.transcations.Transactions ${{ github.event.inputs.transactionCurrencies }} ${{ github.event.inputs.depositAmount }} ${{ github.event.inputs.withdrawlAmount }}
 
       - name: Run Automation Tests
         run: mvn clean install -DcIcD=true -Dbrowser=${{ github.event.inputs.browser }} -DsuiteXmlFile=suites/${{ github.event.inputs.suite }} -PCustomSuite

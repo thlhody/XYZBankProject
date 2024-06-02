@@ -1,16 +1,17 @@
 package tests;
 
 import objectData.AddCustomerObject;
-import org.jetbrains.annotations.NotNull;
+import objectData.TransactionsObject;
 import org.testng.annotations.Test;
 import pages.*;
 import propertyUtility.PropertyUtility;
 import sharedData.Hooks;
+import sharedData.transactions.Transactions;
 
 import java.util.List;
 import java.util.Map;
 
-public class FirstTestTemporary extends Hooks {
+public class CreateCustomerAndAccountTest extends Hooks {
 
     @Test
     public void metodaTest(){
@@ -25,27 +26,50 @@ public class FirstTestTemporary extends Hooks {
 
         //procesez datele din properties files
         PropertyUtility propertyUtilityA = new PropertyUtility("AddCustomerDataA");
-
+        //creeze user
         AddCustomerObject addCustomerObjectA = new AddCustomerObject(propertyUtilityA.getAllData());
         AddCustomerPage addCustomerPageA = new AddCustomerPage(getWebDriver());
-
         addCustomerPageA.fillAllData(addCustomerObjectA);
 
-        System.out.println(addCustomerObjectA.getCustomerId()+addCustomerObjectA.getFirstNameValue()+addCustomerObjectA.getLastNameValue()+addCustomerObjectA.getPostCodeValue());
+        //deschid pagina Open Account si creez conturile
         bankMP.navigateToOpenAccountPage();
-
         OpenAccountPage openAccountPage = new OpenAccountPage(getWebDriver());
         openAccountPage.openAccount(addCustomerObjectA);
-        viewAccountList(addCustomerObjectA);
 
-        bankMP.navigateToCustomersPage();
-        CustomersListPage customersListPage = new CustomersListPage(getWebDriver());
-        //customersListPage.searchAndDelete(addCustomerObjectA);
+        //deschid Customer Login
+        homePage.navigateToHomePage();
+        homePage.navigateToCustomerPage();
+        CustomerSelectPage customerSelectPage = new CustomerSelectPage(getWebDriver());
+        customerSelectPage.selectUserByName(addCustomerObjectA);
+
+        Transactions transactions = new Transactions();
+        transactions.updateTransactionProperties();
+
+        PropertyUtility propertyUtilityB = new PropertyUtility("TransactionDataA.properties");
+        TransactionsObject transactionsObject = new TransactionsObject(propertyUtilityB.getAllData());
+        UserPage userPage = new UserPage(getWebDriver());
+        userPage.depositAndWithdrawl(addCustomerObjectA,transactionsObject);
+
+        //deschid pagina Customers si sterg contul creat
+//        bankMP.navigateToCustomersPage();
+//        CustomersListPage customersListPage = new CustomersListPage(getWebDriver());
+//        customersListPage.searchAndDelete(addCustomerObjectA);
+
+        viewAccountList(addCustomerObjectA);
     }
+
+
+
+
+
+
+
+
+
     public void viewAccountList(AddCustomerObject addCustomerObject) {
-        for (Map.Entry<String, List<Integer>> entry : addCustomerObject.getAccountsCurrencyMap().entrySet()) {
+        for (Map.Entry<String, List<String>> entry : addCustomerObject.getAccountsCurrencyMap().entrySet()) {
             String bani = entry.getKey();
-            List<Integer> accountValues = entry.getValue();
+            List<String> accountValues = entry.getValue();
 
             if(accountValues != null && !accountValues.isEmpty()){
                 System.out.println("Account values for " + bani + ":");

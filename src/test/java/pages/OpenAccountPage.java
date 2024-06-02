@@ -50,7 +50,7 @@ public class OpenAccountPage extends BasePage {
             selectCustomer(addCustomerObject.getCustomerFullName());
             selectCurrency(currency);
             pressProcess();
-            Integer accountNumber = alertMethods.extractedAlertInteger();
+            String accountNumber = alertMethods.extractedAlertString();
             addCustomerObject.addAccountValue(currency,accountNumber);
             alertMethods.acceptAlert();
         }

@@ -15,11 +15,11 @@ public class AddCustomerObject extends GeneralObject {
     private String firstNameValue;//din properties files
     private String lastNameValue;//din properties files
     private String postCodeValue;//din properties files
-    private String customerFullName;
-    private List<String> inputCurrency;//din properties files dupa parsare o lista cu currency in Dollar,Pound,Value
-    private Integer customerId;//din alerta dupa creeare user
+    private String customerFullName; // creat intern pentru al folosi la nevoie
+    private List<String> inputCurrency; //din properties files dupa parsare o lista cu currency in Dollar,Pound,Value...
+    private Integer customerId;//din alerta dupa creare user
 
-    private Map<String, List<Integer>> accountsCurrencyMap = new HashMap<>(); // din alerta dupa adaugare conturi
+    private Map<String, List<String>> accountsCurrencyMap = new HashMap<>(); // din alerta dupa adaugare conturi
 
     public AddCustomerObject(Map<String, String> testData) {
         prepareObject(testData);
@@ -45,27 +45,27 @@ public class AddCustomerObject extends GeneralObject {
         }
     }
 
-    public void prepareAccountMap() {
-        accountsCurrencyMap.put("Dollar", new ArrayList<>());
-        accountsCurrencyMap.put("Pound", new ArrayList<>());
-        accountsCurrencyMap.put("Rupee", new ArrayList<>());
+    private void prepareAccountMap() {
+        for(String currency : inputCurrency) {
+            accountsCurrencyMap.put(currency, new ArrayList<>());
+        }
     }
 
-    public void addAccountValue(String currency, Integer value) {
+    public void addAccountValue(String currency, String value) {
         if (accountsCurrencyMap.containsKey(currency)) {
-            List<Integer> accountList = accountsCurrencyMap.get(currency);
+            List<String> accountList = accountsCurrencyMap.get(currency);
             if (accountList != null) {
                 accountList.add(value);
             }
         }
     }
 
-    public void setFirstNameValue(String firstNameValue) {
+    private void setFirstNameValue(String firstNameValue) {
         this.firstNameValue = firstNameValue;
         this.updateCustomerFullName();
     }
 
-    public void setLastNameValue(String lastNameValue) {
+    private void setLastNameValue(String lastNameValue) {
         this.lastNameValue = lastNameValue;
         this.updateCustomerFullName();
     }
