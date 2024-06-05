@@ -35,7 +35,7 @@ public class UserPage extends BasePage {
     public void selectAccountNumber(String accNr, String currency) {
         clickMethods.clickBttNormal(accountDropdown);
         selectMethods.selectObj(accountDropdown, accNr);
-        LoggerUtility.infoTest("User selects Currency "+currency+" Account Number " + accNr);
+        LoggerUtility.infoTest("User selects Currency " + currency + " Account Number " + accNr);
     }
 
     public void depositCurrency() {

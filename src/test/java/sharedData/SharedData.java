@@ -15,6 +15,6 @@ public class SharedData {
     }
 
     public void clearData() {
-        //webDriver.quit();
+        webDriver.quit();
     }
 }

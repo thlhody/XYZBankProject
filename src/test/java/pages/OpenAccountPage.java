@@ -25,8 +25,8 @@ public class OpenAccountPage extends BasePage {
 
     public void selectCustomer(String value) {
         clickMethods.clickBttNormal(selectCustomerElement);
-        for(WebElement userOption : findUserByID){
-            if(userOption.getText().contains(value)){
+        for (WebElement userOption : findUserByID) {
+            if (userOption.getText().contains(value)) {
                 userOption.click();
                 break;
             }
@@ -36,7 +36,7 @@ public class OpenAccountPage extends BasePage {
 
     public void selectCurrency(String currency) {
         clickMethods.clickBttNormal(currencyDropdown);
-        selectMethods.selectObj(currencyDropdown,currency);
+        selectMethods.selectObj(currencyDropdown, currency);
         LoggerUtility.infoTest("User selects Currency: " + currency);
     }
 
@@ -44,13 +44,14 @@ public class OpenAccountPage extends BasePage {
         clickMethods.clickBttNormal(clickProcessButton);
         LoggerUtility.infoTest("User presses the Process Button");
     }
+
     public void openAccount(AddCustomerObject addCustomerObject) {
         for (String currency : addCustomerObject.getInputCurrency()) {
             selectCustomer(addCustomerObject.getCustomerFullName());
             selectCurrency(currency);
             pressProcess();
             String accountNumber = alertMethods.extractedAlertString();
-            addCustomerObject.addAccountValue(currency,accountNumber);
+            addCustomerObject.addAccountValue(currency, accountNumber);
             alertMethods.acceptAlert();
         }
     }

@@ -8,7 +8,7 @@ import java.util.Map;
 
 @Getter
 @Setter
-public class TransactionsObject extends GeneralObject{
+public class TransactionsObject extends GeneralObject {
 
     private String depositAmount;
     private String withdrawAmount;

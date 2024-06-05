@@ -14,7 +14,7 @@ import java.util.Map;
 public class CreateCustomerAndAccountTest extends Hooks {
 
     @Test
-    public void metodaTest(){
+    public void metodaTest() {
 
         //deschid pagina principala
         HomePage homePage = new HomePage(getWebDriver());
@@ -42,16 +42,16 @@ public class CreateCustomerAndAccountTest extends Hooks {
         CustomerSelectPage customerSelectPage = new CustomerSelectPage(getWebDriver());
         customerSelectPage.selectUserByName(addCustomerObjectA);
 
-
-
-
+        //o verificare suplimentara daca am conturile corecte
         viewAccountList(addCustomerObjectA);
+
+        //fac tranzactii pe conturile deschise
         PropertyUtility propertyUtilityC = new PropertyUtility("TransactionDataA");
         TransactionsObject transactionsObject = new TransactionsObject(propertyUtilityC.getAllData());
         Transactions transactions = new Transactions();
         transactions.updateTransactionProperties(transactionsObject);
         UserPage userPage = new UserPage(getWebDriver());
-        userPage.depositAndWithdrawl(addCustomerObjectA,transactionsObject);
+        userPage.depositAndWithdrawl(addCustomerObjectA, transactionsObject);
 
         //deschid pagina Customers si sterg contul creat
         homePage.navigateToHomePage();
@@ -63,27 +63,19 @@ public class CreateCustomerAndAccountTest extends Hooks {
 
     }
 
-
-
-
-
-
-
-
-
     public void viewAccountList(AddCustomerObject addCustomerObject) {
         for (Map.Entry<String, List<String>> entry : addCustomerObject.getAccountsCurrencyMap().entrySet()) {
             String bani = entry.getKey();
             List<String> accountValues = entry.getValue();
 
-            if(accountValues != null && !accountValues.isEmpty()){
+            if (accountValues != null && !accountValues.isEmpty()) {
                 System.out.println("Account values for " + bani + ":");
                 for (String accountValue : accountValues) {
                     System.out.print("," + accountValue);
                 }
                 System.out.println();
-            }else{
-                System.out.println("no account value for: "+bani);
+            } else {
+                System.out.println("no account value for: " + bani);
             }
         }
     }

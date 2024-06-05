@@ -46,7 +46,7 @@ public class AddCustomerObject extends GeneralObject {
     }
 
     private void prepareAccountMap() {
-        for(String currency : inputCurrency) {
+        for (String currency : inputCurrency) {
             accountsCurrencyMap.put(currency, new ArrayList<>());
         }
     }

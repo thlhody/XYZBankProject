@@ -13,9 +13,9 @@ public class Transactions extends GeneralObject {
         String depositAmount = System.getProperty("depositAmount");
         String withdrawAmount = System.getProperty("withdrawAmount");
 
-        LoggerUtility.infoTest("GitHub Action values: "+ depositAmount+"  "+withdrawAmount);
+        LoggerUtility.infoTest("GitHub Action values: " + depositAmount + "  " + withdrawAmount);
 
-        String cIcD = System.getProperty("cIcD");
+        String cIcD = System.getProperty("cIcD");//l-am folosit ca sa pot sa folosesc programul si offline si online
 
         if (Boolean.parseBoolean(cIcD)) {
             transactionsObject.setDepositAmount(depositAmount);
