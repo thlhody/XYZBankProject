@@ -1,7 +1,6 @@
 package tests;
 
 import objectData.AddCustomerObject;
-import objectData.TransactionsObject;
 import org.testng.annotations.Test;
 import pages.*;
 import propertyUtility.PropertyUtility;
@@ -20,46 +19,27 @@ public class CreateCustomerAndAccountTest extends Hooks {
         HomePage homePage = new HomePage(getWebDriver());
         homePage.navigateToManagerPage();
 
+        //procesez datele din properties files si le adaug in obiect
+        PropertyUtility propertyUtilityA = new PropertyUtility("AddCustomerDataA");
+        AddCustomerObject addCustomerObjectA = new AddCustomerObject(propertyUtilityA.getAllData());
+
         //deschid pagina Bank manager login
         BankManagerPage bankMP = new BankManagerPage(getWebDriver());
-        bankMP.navigateToAddCustomerPage();
-
-        //procesez datele din properties files
-        PropertyUtility propertyUtilityA = new PropertyUtility("AddCustomerDataA");
         //creeze user
-        AddCustomerObject addCustomerObjectA = new AddCustomerObject(propertyUtilityA.getAllData());
-        AddCustomerPage addCustomerPageA = new AddCustomerPage(getWebDriver());
-        addCustomerPageA.fillAllData(addCustomerObjectA);
-
-        //deschid pagina Open Account si creez conturile
-        bankMP.navigateToOpenAccountPage();
-        OpenAccountPage openAccountPage = new OpenAccountPage(getWebDriver());
-        openAccountPage.openAccount(addCustomerObjectA);
-
+        bankMP.createCustomer(addCustomerObjectA);
+        //deschid pagina Open Account si creez conturile cu valuta
+        bankMP.addAccountCurrenyToUser(addCustomerObjectA);
         //deschid Customer Login
         homePage.navigateToHomePage();
         homePage.navigateToCustomerPage();
-        CustomerSelectPage customerSelectPage = new CustomerSelectPage(getWebDriver());
-        customerSelectPage.selectUserByName(addCustomerObjectA);
 
-        //o verificare suplimentara daca am conturile corecte
-        viewAccountList(addCustomerObjectA);
-
+        CustomerPage customerPage = new CustomerPage(getWebDriver());
         //fac tranzactii pe conturile deschise
-        PropertyUtility propertyUtilityC = new PropertyUtility("TransactionDataA");
-        TransactionsObject transactionsObject = new TransactionsObject(propertyUtilityC.getAllData());
-        Transactions transactions = new Transactions();
-        transactions.updateTransactionProperties(transactionsObject);
-        UserPage userPage = new UserPage(getWebDriver());
-        userPage.depositAndWithdrawl(addCustomerObjectA, transactionsObject);
+        customerPage.makeCustomerTransactions(addCustomerObjectA);
 
-        //deschid pagina Customers si sterg contul creat
         homePage.navigateToHomePage();
         homePage.navigateToManagerPage();
-        bankMP.navigateToCustomersPage();
-        CustomersListPage customersListPage = new CustomersListPage(getWebDriver());
-        customersListPage.searchAndDelete(addCustomerObjectA);
-
+        bankMP.removeCustomerAccount(addCustomerObjectA);
 
     }
 

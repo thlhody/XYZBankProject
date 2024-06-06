@@ -5,7 +5,7 @@ import java.util.List;
 
 public class GeneralObject {
 
-    public List<String> getPreparedValue(String text) {
+    protected List<String> getPreparedValue(String text) {
         List<String> result = new ArrayList<>();
         String[] valueSplit = text.split(",");
         for (int i = 0; i < valueSplit.length; i++) {

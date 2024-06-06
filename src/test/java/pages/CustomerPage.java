@@ -2,7 +2,6 @@ package pages;
 
 import loggerUtility.LoggerUtility;
 import objectData.AddCustomerObject;
-import objectData.TransactionsObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,13 +9,16 @@ import org.openqa.selenium.support.FindBy;
 import java.util.List;
 import java.util.Map;
 
-public class UserPage extends BasePage {
-    public UserPage(WebDriver webDriver) {
+public class CustomerPage extends BasePage {
+    public CustomerPage(WebDriver webDriver) {
         super(webDriver);
     }
 
     @FindBy(id = "userSelect")
     private WebElement userSelect;
+    @FindBy(xpath = "//button[text()='Login']")
+    private WebElement clickLoginButton;
+
     @FindBy(xpath = "//button[text()='Logout']")
     private WebElement clickLogoutButton;
     @FindBy(css = "button[ng-click='transactions()']")
@@ -31,6 +33,22 @@ public class UserPage extends BasePage {
     private WebElement submitAmount;
     @FindBy(id = "accountSelect")
     private WebElement accountDropdown;
+
+    public void selectUser(String user) {
+        clickMethods.clickBttNormal(userSelect);
+        selectMethods.selectObj(userSelect, user);
+        LoggerUtility.infoTest("User selects User by full name: " + user);
+    }
+
+    public void pressProcess() {
+        clickMethods.clickBttNormal(clickLoginButton);
+        LoggerUtility.infoTest("User presses the Login Button");
+    }
+
+    public void selectUserByName(AddCustomerObject addCustomerObject) {
+        selectUser(addCustomerObject.getCustomerFullName());
+        pressProcess();
+    }
 
     public void selectAccountNumber(String accNr, String currency) {
         clickMethods.clickBttNormal(accountDropdown);
@@ -55,17 +73,12 @@ public class UserPage extends BasePage {
         LoggerUtility.infoTest("User entered amount: " + amount);
     }
 
-    public void navigateToTransactionsPage() {
-        clickMethods.clickBttNormal(transactionButton);
-        LoggerUtility.infoTest("User clicks on Deposit Button!");
-    }
-
-
-    public void depositAndWithdrawl(AddCustomerObject addCustomerObject, TransactionsObject transactionsObject) {
+    public void makeCustomerTransactions(AddCustomerObject addCustomerObject) {
+        selectUserByName(addCustomerObject);
         Map<String, List<String>> accountsCurrencyMap = addCustomerObject.getAccountsCurrencyMap();// preia conturile din addCustomerObject
-        List<String> currencies = transactionsObject.getTransactionCurrencies(); // preia valuta din property file
-        String amountDeposit = transactionsObject.getDepositAmount(); // preia suma pentru deposit din property file
-        String amountWithdraw = transactionsObject.getWithdrawAmount(); // preia suma pentru retragere din property file
+        List<String> currencies = addCustomerObject.getTransactionCurrencies(); // preia valuta din property file
+        String amountDeposit = addCustomerObject.getDepositAmount(); // preia suma pentru deposit din property file
+        String amountWithdraw = addCustomerObject.getWithdrawAmount(); // preia suma pentru retragere din property file
         for (String currency : currencies) {
             List<String> accountDetails = accountsCurrencyMap.get(currency);
             if (!accountDetails.isEmpty()) {
@@ -84,5 +97,11 @@ public class UserPage extends BasePage {
                 System.out.println("Account info not found!");
             }
         }
+        clickMethods.clickBttNormal(clickLogoutButton);
+    }
+
+    public void navigateToTransactionsPage() {
+        clickMethods.clickBttNormal(transactionButton);
+        LoggerUtility.infoTest("User clicks on Deposit Button!");
     }
 }

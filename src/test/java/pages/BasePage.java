@@ -6,12 +6,12 @@ import org.openqa.selenium.support.PageFactory;
 
 public class BasePage {
 
-    public WebDriver webDriver;
-    public ClickMethods clickMethods;
-    public InputMethods inputMethods;
-    public WaitMethod waitMethod;
-    public AlertMethods alertMethods;
-    public SelectMethods selectMethods;
+    protected WebDriver webDriver;
+    protected ClickMethods clickMethods;
+    protected InputMethods inputMethods;
+    protected WaitMethod waitMethod;
+    protected AlertMethods alertMethods;
+    protected SelectMethods selectMethods;
 
     public BasePage(WebDriver webDriver) {
 

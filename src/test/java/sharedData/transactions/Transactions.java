@@ -1,13 +1,13 @@
 package sharedData.transactions;
 
 import loggerUtility.LoggerUtility;
+import objectData.AddCustomerObject;
 import objectData.GeneralObject;
-import objectData.TransactionsObject;
 
 
 public class Transactions extends GeneralObject {
 
-    public void updateTransactionProperties(TransactionsObject transactionsObject) {
+    public void updateTransactionProperties(AddCustomerObject transactionsObject) {
 
         String transactionCurrencies = System.getProperty("transactionCurrencies");
         String depositAmount = System.getProperty("depositAmount");
@@ -15,7 +15,7 @@ public class Transactions extends GeneralObject {
 
         LoggerUtility.infoTest("GitHub Action values: " + depositAmount + "  " + withdrawAmount);
 
-        String cIcD = System.getProperty("cIcD");//l-am folosit ca sa pot sa folosesc programul si offline si online
+        String cIcD = System.getProperty("cIcD");
 
         if (Boolean.parseBoolean(cIcD)) {
             transactionsObject.setDepositAmount(depositAmount);
