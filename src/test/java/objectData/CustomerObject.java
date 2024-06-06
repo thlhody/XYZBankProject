@@ -11,7 +11,7 @@ import java.util.Map;
 
 @Getter
 @Setter
-public class AddCustomerObject extends GeneralObject {
+public class CustomerObject extends GeneralObject {
 
     private String firstNameValue;//din properties files
     private String lastNameValue;//din properties files
@@ -25,7 +25,7 @@ public class AddCustomerObject extends GeneralObject {
 
     private Map<String, List<String>> accountsCurrencyMap = new HashMap<>(); // din alerta dupa adaugare conturi
 
-    public AddCustomerObject(Map<String, String> testData) {
+    public CustomerObject(Map<String, String> testData) {
 
         prepareObject(testData);
         updateTransactionProperties();

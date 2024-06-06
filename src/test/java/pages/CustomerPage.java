@@ -1,7 +1,7 @@
 package pages;
 
 import loggerUtility.LoggerUtility;
-import objectData.AddCustomerObject;
+import objectData.CustomerObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -45,8 +45,8 @@ public class CustomerPage extends BasePage {
         LoggerUtility.infoTest("User presses the Login Button");
     }
 
-    public void selectUserByName(AddCustomerObject addCustomerObject) {
-        selectUser(addCustomerObject.getCustomerFullName());
+    public void selectUserByName(CustomerObject customerObject) {
+        selectUser(customerObject.getCustomerFullName());
         pressProcess();
     }
 
@@ -73,12 +73,12 @@ public class CustomerPage extends BasePage {
         LoggerUtility.infoTest("User entered amount: " + amount);
     }
 
-    public void makeCustomerTransactions(AddCustomerObject addCustomerObject) {
-        selectUserByName(addCustomerObject);
-        Map<String, List<String>> accountsCurrencyMap = addCustomerObject.getAccountsCurrencyMap();// preia conturile din addCustomerObject
-        List<String> currencies = addCustomerObject.getTransactionCurrencies(); // preia valuta din property file
-        String amountDeposit = addCustomerObject.getDepositAmount(); // preia suma pentru deposit din property file
-        String amountWithdraw = addCustomerObject.getWithdrawAmount(); // preia suma pentru retragere din property file
+    public void makeCustomerTransactions(CustomerObject customerObject) {
+        selectUserByName(customerObject);
+        Map<String, List<String>> accountsCurrencyMap = customerObject.getAccountsCurrencyMap();// preia conturile din addCustomerObject
+        List<String> currencies = customerObject.getTransactionCurrencies(); // preia valuta din property file
+        String amountDeposit = customerObject.getDepositAmount(); // preia suma pentru deposit din property file
+        String amountWithdraw = customerObject.getWithdrawAmount(); // preia suma pentru retragere din property file
         for (String currency : currencies) {
             List<String> accountDetails = accountsCurrencyMap.get(currency);
             if (!accountDetails.isEmpty()) {

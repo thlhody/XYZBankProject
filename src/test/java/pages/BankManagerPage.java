@@ -1,7 +1,7 @@
 package pages;
 
 import loggerUtility.LoggerUtility;
-import objectData.AddCustomerObject;
+import objectData.CustomerObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -70,13 +70,13 @@ public class BankManagerPage extends BasePage {
         LoggerUtility.infoTest("User clicks on Add Customer Button");
     }
 
-    public void createCustomer(AddCustomerObject addCustomerObject) {
+    public void createCustomer(CustomerObject customerObject) {
         navigateToAddCustomer();
-        fillFirstName(addCustomerObject.getFirstNameValue());
-        fillLastName(addCustomerObject.getLastNameValue());
-        fillPostalCode(addCustomerObject.getPostCodeValue());
+        fillFirstName(customerObject.getFirstNameValue());
+        fillLastName(customerObject.getLastNameValue());
+        fillPostalCode(customerObject.getPostCodeValue());
         clickAddCustomer();
-        addCustomerObject.setCustomerId(alertMethods.extractedAlertInteger());
+        customerObject.setCustomerId(alertMethods.extractedAlertInteger());
         alertMethods.acceptAlert();
     }
 
@@ -107,14 +107,14 @@ public class BankManagerPage extends BasePage {
         LoggerUtility.infoTest("User presses the Process Button");
     }
 
-    public void addAccountCurrenyToUser(AddCustomerObject addCustomerObject) {
+    public void addAccountCurrenyToUser(CustomerObject customerObject) {
         navigateToOpenAccount();
-        for (String currency : addCustomerObject.getInputCurrency()) {
-            selectCustomer(addCustomerObject.getCustomerFullName());
+        for (String currency : customerObject.getInputCurrency()) {
+            selectCustomer(customerObject.getCustomerFullName());
             selectCurrency(currency);
             pressProcess();
             String accountNumber = alertMethods.extractedAlertString();
-            addCustomerObject.addAccountValue(currency, accountNumber);
+            customerObject.addAccountValue(currency, accountNumber);
             alertMethods.acceptAlert();
         }
     }
@@ -134,11 +134,11 @@ public class BankManagerPage extends BasePage {
         clickMethods.clickBttNormal(deleteSearchedCustomer);
     }
 
-    public void removeCustomerAccount(AddCustomerObject addCustomerObject) {
+    public void removeCustomerAccount(CustomerObject customerObject) {
         navigateToCustomers();
-        searchCustomer(addCustomerObject.getPostCodeValue());
+        searchCustomer(customerObject.getPostCodeValue());
         deleteCustomer();
-        LoggerUtility.infoTest("User enters deletes Customer: " + addCustomerObject.getCustomerFullName());
+        LoggerUtility.infoTest("User enters deletes Customer: " + customerObject.getCustomerFullName());
     }
 
 }
