@@ -34,36 +34,48 @@ public class CustomerPage extends BasePage {
     @FindBy(id = "accountSelect")
     private WebElement accountDropdown;
 
-    public void selectUser(String user) {
-        clickMethods.clickBttNormal(userSelect);
-        selectMethods.selectObj(userSelect, user);
-        LoggerUtility.infoTest("User selects User by full name: " + user);
-    }
 
-    public void pressProcess() {
+    public void selectUserByName(CustomerObject customerObject) {
+        clickMethods.clickBttNormal(userSelect);
+        selectMethods.selectObj(userSelect, customerObject.getCustomerFullName());
+        LoggerUtility.infoTest("User selects User by full name: " + customerObject.getCustomerFullName());
         clickMethods.clickBttNormal(clickLoginButton);
         LoggerUtility.infoTest("User presses the Login Button");
     }
 
-    public void selectUserByName(CustomerObject customerObject) {
-        selectUser(customerObject.getCustomerFullName());
-        pressProcess();
-    }
+    public void makeCustomerTransactions(CustomerObject customerObject) {
+        selectUserByName(customerObject);
 
-    public void selectAccountNumber(String accNr, String currency) {
-        clickMethods.clickBttNormal(accountDropdown);
-        selectMethods.selectObj(accountDropdown, accNr);
-        LoggerUtility.infoTest("User selects Currency " + currency + " Account Number " + accNr);
-    }
+        Map<String, List<String>> accountsCurrencyMap = customerObject.getAccountsCurrencyMap();// preia conturile din addCustomerObject
+        List<String> currencies = customerObject.getTransactionCurrencies(); // preia valuta din property file
+        String amountDeposit = customerObject.getDepositAmount(); // preia suma pentru deposit din property file
+        String amountWithdraw = customerObject.getWithdrawAmount(); // preia suma pentru retragere din property file
 
-    public void depositCurrency() {
-        clickMethods.clickBttNormal(depositButton);
-        LoggerUtility.infoTest("User clicks on Deposit Button!");
-    }
-
-    public void withdrawCurrency() {
-        clickMethods.clickBttNormal(withdrawlButton);
-        LoggerUtility.infoTest("User clicks on Withdrawl Button!");
+        for (String currency : currencies) {
+            List<String> accountDetails = accountsCurrencyMap.get(currency);
+            if (!accountDetails.isEmpty()) {
+                String accountNumber = accountDetails.get(0);
+                clickMethods.clickBttNormal(accountDropdown);
+                selectMethods.selectObj(accountDropdown, accountNumber);
+                LoggerUtility.infoTest("User selects Currency " + currency + " Account Number " + accountNumber);
+                waitMethod.waitToSee();
+                clickMethods.clickBttNormal(depositButton);
+                LoggerUtility.infoTest("User clicks on Deposit Button!");
+                waitMethod.waitToSee();
+                enterAmount(amountDeposit);
+                waitMethod.waitToSee();
+                clickMethods.clickBttNormal(withdrawlButton);
+                LoggerUtility.infoTest("User clicks on Withdraw Button!");
+                waitMethod.waitToSee();
+                enterAmount(amountWithdraw);
+                waitMethod.waitToSee();
+            } else {
+                System.out.println("Account info not found!");
+            }
+        }
+        navigateToTransactionsPage();
+        waitMethod.waitToSee();
+        clickMethods.clickBttNormal(clickLogoutButton);
     }
 
     public void enterAmount(String amount) {
@@ -73,35 +85,10 @@ public class CustomerPage extends BasePage {
         LoggerUtility.infoTest("User entered amount: " + amount);
     }
 
-    public void makeCustomerTransactions(CustomerObject customerObject) {
-        selectUserByName(customerObject);
-        Map<String, List<String>> accountsCurrencyMap = customerObject.getAccountsCurrencyMap();// preia conturile din addCustomerObject
-        List<String> currencies = customerObject.getTransactionCurrencies(); // preia valuta din property file
-        String amountDeposit = customerObject.getDepositAmount(); // preia suma pentru deposit din property file
-        String amountWithdraw = customerObject.getWithdrawAmount(); // preia suma pentru retragere din property file
-        for (String currency : currencies) {
-            List<String> accountDetails = accountsCurrencyMap.get(currency);
-            if (!accountDetails.isEmpty()) {
-                String accountNumber = accountDetails.get(0);
-                selectAccountNumber(accountNumber, currency);
-                waitMethod.waitToSee();
-                depositCurrency();
-                waitMethod.waitToSee();
-                enterAmount(amountDeposit);
-                waitMethod.waitToSee();
-                withdrawCurrency();
-                waitMethod.waitToSee();
-                enterAmount(amountWithdraw);
-                waitMethod.waitToSee();
-            } else {
-                System.out.println("Account info not found!");
-            }
-        }
-        clickMethods.clickBttNormal(clickLogoutButton);
-    }
-
     public void navigateToTransactionsPage() {
         clickMethods.clickBttNormal(transactionButton);
-        LoggerUtility.infoTest("User clicks on Deposit Button!");
+        LoggerUtility.infoTest("User opens Transcation Page!");
     }
+
 }
+

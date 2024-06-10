@@ -45,100 +45,56 @@ public class BankManagerPage extends BasePage {
     @FindBy(css = "button[ng-click='deleteCust(cust)'")
     private WebElement deleteSearchedCustomer;
 
-    public void navigateToAddCustomer() {
-        clickMethods.clickBttNormal(addCustomerElement);
-        LoggerUtility.infoTest("User clicks on Add Customer Button!");
-    }
-
-    public void fillFirstName(String firstNameValue) {
-        inputMethods.inputText(addFirstNameElement, firstNameValue);
-        LoggerUtility.infoTest("User enter First Name Value:  " + firstNameValue);
-    }
-
-    public void fillLastName(String lastNameValue) {
-        inputMethods.inputText(addLastNameElement, lastNameValue);
-        LoggerUtility.infoTest("User enters Last Name Value:  " + lastNameValue);
-    }
-
-    public void fillPostalCode(String postCodeValue) {
-        inputMethods.inputText(addPostCodeElement, postCodeValue);
-        LoggerUtility.infoTest("User enter Post Code Value:  " + postCodeValue);
-    }
-
-    public void clickAddCustomer() {
-        clickMethods.clickBttNormal(addCustomerButton);
-        LoggerUtility.infoTest("User clicks on Add Customer Button");
-    }
-
-    public void createCustomer(CustomerObject customerObject) {
-        navigateToAddCustomer();
-        fillFirstName(customerObject.getFirstNameValue());
-        fillLastName(customerObject.getLastNameValue());
-        fillPostalCode(customerObject.getPostCodeValue());
-        clickAddCustomer();
-        customerObject.setCustomerId(alertMethods.extractedAlertInteger());
-        alertMethods.acceptAlert();
-    }
-
-    public void navigateToOpenAccount() {
-        clickMethods.clickBttNormal(openAccountButton);
-        LoggerUtility.infoTest("User clicks on Open Account Button!");
-    }
-
-    public void selectCustomer(String value) {
-        clickMethods.clickBttNormal(selectCustomerElement);
-        for (WebElement userOption : findUserByID) {
-            if (userOption.getText().contains(value)) {
-                userOption.click();
+    public void navigateTo(String menuOption, CustomerObject customerObject) {
+        switch (menuOption.toLowerCase()) {
+            case "add customer":
+                clickMethods.clickBttNormal(addCustomerElement);
+                LoggerUtility.infoTest("Navigated to Add Customer!");
+                inputMethods.inputText(addFirstNameElement, customerObject.getFirstNameValue());
+                LoggerUtility.infoTest("User enter First Name Value: " + customerObject.getFirstNameValue());
+                inputMethods.inputText(addLastNameElement, customerObject.getLastNameValue());
+                LoggerUtility.infoTest("User enters Last Name Value: " + customerObject.getLastNameValue());
+                inputMethods.inputText(addPostCodeElement, customerObject.getPostCodeValue());
+                LoggerUtility.infoTest("User enter Post Code Value: " + customerObject.getPostCodeValue());
+                clickMethods.clickBttNormal(addCustomerButton);
+                customerObject.setCustomerId(alertMethods.extractedAlertInteger());
+                waitMethod.waitToSee();
+                alertMethods.acceptAlert();
+                LoggerUtility.infoTest("User clicks on Add Customer Button and creates Customer: " + customerObject.getCustomerFullName() + " with ID: " + customerObject.getCustomerId() + ".");
                 break;
-            }
+            case "open account":
+                clickMethods.clickBttNormal(openAccountButton);
+                LoggerUtility.infoTest("Navigated to Open Account!");
+                clickMethods.clickBttNormal(selectCustomerElement);
+                for (String currency : customerObject.getInputCurrency()) {
+                    for (WebElement userOption : findUserByID) {
+                        if (userOption.getText().contains(customerObject.getCustomerFullName())) {
+                            userOption.click();
+                        }
+                    }
+                    LoggerUtility.infoTest("User enters Customer: " + customerObject.getCustomerFullName() + " Currency: " + currency);
+                    clickMethods.clickBttNormal(currencyDropdown);
+                    selectMethods.selectObj(currencyDropdown, currency);
+                    clickMethods.clickBttNormal(clickProcessButton);
+                    LoggerUtility.infoTest("User presses the Process Button");
+                    String accountNumber = alertMethods.extractedAlertString();
+                    customerObject.addAccountValue(currency, accountNumber);
+                    waitMethod.waitToSee();
+                    alertMethods.acceptAlert();
+                }
+                break;
+            case "show customers":
+                clickMethods.clickBttNormal(showCustomerButton);
+                LoggerUtility.infoTest("Navigates to Show Customer!");
+                clickMethods.clickBttNormal(searchCustomerBy);
+                inputMethods.inputText(searchCustomerBy, customerObject.getPostCodeValue());
+                LoggerUtility.infoTest("User enters search Customer: " + customerObject.getPostCodeValue());
+                clickMethods.clickBttNormal(deleteSearchedCustomer);
+                LoggerUtility.infoTest("User Deletes searched Customer: " + customerObject.getPostCodeValue() + " - " + customerObject.getCustomerFullName());
+                break;
+            default:
+                LoggerUtility.infoTest("Invalid Meniu option: " + menuOption);
+                break;
         }
-        LoggerUtility.infoTest("User enters Customer " + value);
     }
-
-    public void selectCurrency(String currency) {
-        clickMethods.clickBttNormal(currencyDropdown);
-        selectMethods.selectObj(currencyDropdown, currency);
-        LoggerUtility.infoTest("User selects Currency: " + currency);
-    }
-
-    public void pressProcess() {
-        clickMethods.clickBttNormal(clickProcessButton);
-        LoggerUtility.infoTest("User presses the Process Button");
-    }
-
-    public void addAccountCurrenyToUser(CustomerObject customerObject) {
-        navigateToOpenAccount();
-        for (String currency : customerObject.getInputCurrency()) {
-            selectCustomer(customerObject.getCustomerFullName());
-            selectCurrency(currency);
-            pressProcess();
-            String accountNumber = alertMethods.extractedAlertString();
-            customerObject.addAccountValue(currency, accountNumber);
-            alertMethods.acceptAlert();
-        }
-    }
-
-    public void navigateToCustomers() {
-        clickMethods.clickBttNormal(showCustomerButton);
-        LoggerUtility.infoTest("User clicks on Show Customer Button!");
-    }
-
-    public void searchCustomer(String text) {
-        clickMethods.clickBttNormal(searchCustomerBy);
-        inputMethods.inputText(searchCustomerBy, text);
-        LoggerUtility.infoTest("User enters search Customer: " + text);
-    }
-
-    public void deleteCustomer() {
-        clickMethods.clickBttNormal(deleteSearchedCustomer);
-    }
-
-    public void removeCustomerAccount(CustomerObject customerObject) {
-        navigateToCustomers();
-        searchCustomer(customerObject.getPostCodeValue());
-        deleteCustomer();
-        LoggerUtility.infoTest("User enters deletes Customer: " + customerObject.getCustomerFullName());
-    }
-
 }

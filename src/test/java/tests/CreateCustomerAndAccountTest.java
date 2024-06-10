@@ -22,9 +22,9 @@ public class CreateCustomerAndAccountTest extends Hooks {
         //deschid pagina Bank manager login
         BankManagerPage bankMP = new BankManagerPage(getWebDriver());
         //creeze user
-        bankMP.createCustomer(customerObjectA);
+        bankMP.navigateTo("add customer", customerObjectA);
         //deschid pagina Open Account si creez conturile cu valuta
-        bankMP.addAccountCurrenyToUser(customerObjectA);
+        bankMP.navigateTo("open account", customerObjectA);
         //deschid Customer Login
         homePage.navigateToHomePage();
         homePage.navigateToCustomerPage();
@@ -35,7 +35,7 @@ public class CreateCustomerAndAccountTest extends Hooks {
 
         homePage.navigateToHomePage();
         homePage.navigateToManagerPage();
-        bankMP.removeCustomerAccount(customerObjectA);
+        bankMP.navigateTo("show customers", customerObjectA);
 
     }
 }

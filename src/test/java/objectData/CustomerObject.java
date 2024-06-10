@@ -19,9 +19,9 @@ public class CustomerObject extends GeneralObject {
     private String customerFullName; // creat intern pentru al folosi la nevoie
     private List<String> inputCurrency; //din properties files dupa parsare o lista cu currency in Dollar,Pound,Value...
     private Integer customerId;//din alerta dupa creare user
-    private String depositAmount;
-    private String withdrawAmount;
-    private List<String> transactionCurrencies;
+    private String depositAmount; //din properties sau din GitHub Actions
+    private String withdrawAmount; //din properties sau din GitHub Actions
+    private List<String> transactionCurrencies; //din properties sau din GitHub Actions
 
     private Map<String, List<String>> accountsCurrencyMap = new HashMap<>(); // din alerta dupa adaugare conturi
 
