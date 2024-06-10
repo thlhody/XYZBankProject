@@ -63,11 +63,13 @@ public class CustomerPage extends BasePage {
                 LoggerUtility.infoTest("User clicks on Deposit Button!");
                 waitMethod.waitToSee();
                 enterAmount(amountDeposit);
+                LoggerUtility.infoTest("User made a deposit!");
                 waitMethod.waitToSee();
                 clickMethods.clickBttNormal(withdrawlButton);
                 LoggerUtility.infoTest("User clicks on Withdraw Button!");
                 waitMethod.waitToSee();
                 enterAmount(amountWithdraw);
+                LoggerUtility.infoTest("User made a withdraw!");
                 waitMethod.waitToSee();
             } else {
                 System.out.println("Account info not found!");
