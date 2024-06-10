@@ -55,7 +55,7 @@ public class BankManagerPage extends BasePage {
                 inputMethods.inputText(addLastNameElement, customerObject.getLastNameValue());
                 LoggerUtility.infoTest("User enters Last Name Value: " + customerObject.getLastNameValue());
                 inputMethods.inputText(addPostCodeElement, customerObject.getPostCodeValue());
-                LoggerUtility.infoTest("User enter Post Code Value: " + customerObject.getPostCodeValue());
+                LoggerUtility.infoTest("User enters Post Code Value: " + customerObject.getPostCodeValue());
                 clickMethods.clickBttNormal(addCustomerButton);
                 customerObject.setCustomerId(alertMethods.extractedAlertInteger());
                 waitMethod.waitToSee();

@@ -18,29 +18,33 @@ public class CustomerPage extends BasePage {
     private WebElement userSelect;
     @FindBy(xpath = "//button[text()='Login']")
     private WebElement clickLoginButton;
-
     @FindBy(xpath = "//button[text()='Logout']")
     private WebElement clickLogoutButton;
+
     @FindBy(css = "button[ng-click='transactions()']")
     private WebElement transactionButton;
+
+    @FindBy(id = "accountSelect")
+    private WebElement accountDropdown;
+
     @FindBy(css = "button[ng-click='deposit()']")
     private WebElement depositButton;
     @FindBy(css = "button[ng-click='withdrawl()']")
-    private WebElement withdrawlButton;
+    private WebElement withdrawButton;
+
     @FindBy(css = "input[placeholder='amount'")
     private WebElement enterAmountElement;
+
     @FindBy(css = "button[type='submit']")
     private WebElement submitAmount;
-    @FindBy(id = "accountSelect")
-    private WebElement accountDropdown;
 
 
     public void selectUserByName(CustomerObject customerObject) {
         clickMethods.clickBttNormal(userSelect);
         selectMethods.selectObj(userSelect, customerObject.getCustomerFullName());
-        LoggerUtility.infoTest("User selects User by full name: " + customerObject.getCustomerFullName());
+        LoggerUtility.infoTest("User selects user by full name: " + customerObject.getCustomerFullName());
         clickMethods.clickBttNormal(clickLoginButton);
-        LoggerUtility.infoTest("User presses the Login Button");
+        LoggerUtility.infoTest("User presses the Login Button!");
     }
 
     public void makeCustomerTransactions(CustomerObject customerObject) {
@@ -51,6 +55,7 @@ public class CustomerPage extends BasePage {
         String amountDeposit = customerObject.getDepositAmount(); // preia suma pentru deposit din property file
         String amountWithdraw = customerObject.getWithdrawAmount(); // preia suma pentru retragere din property file
 
+
         for (String currency : currencies) {
             List<String> accountDetails = accountsCurrencyMap.get(currency);
             if (!accountDetails.isEmpty()) {
@@ -60,19 +65,19 @@ public class CustomerPage extends BasePage {
                 LoggerUtility.infoTest("User selects Currency " + currency + " Account Number " + accountNumber);
                 waitMethod.waitToSee();
                 clickMethods.clickBttNormal(depositButton);
-                LoggerUtility.infoTest("User clicks on Deposit Button!");
+                LoggerUtility.infoTest("User presses Deposit!");
                 waitMethod.waitToSee();
                 enterAmount(amountDeposit);
                 LoggerUtility.infoTest("User made a deposit!");
                 waitMethod.waitToSee();
-                clickMethods.clickBttNormal(withdrawlButton);
-                LoggerUtility.infoTest("User clicks on Withdraw Button!");
+                clickMethods.clickBttNormal(withdrawButton);
+                LoggerUtility.infoTest("User presses Withdraw!");
                 waitMethod.waitToSee();
                 enterAmount(amountWithdraw);
                 LoggerUtility.infoTest("User made a withdraw!");
                 waitMethod.waitToSee();
-            } else {
-                System.out.println("Account info not found!");
+                String transactionResult = String.valueOf(Integer.parseInt(amountDeposit) - Integer.parseInt(amountWithdraw));
+                LoggerUtility.infoTest("Balance Left: "+transactionResult);
             }
         }
         navigateToTransactionsPage();
@@ -89,7 +94,7 @@ public class CustomerPage extends BasePage {
 
     public void navigateToTransactionsPage() {
         clickMethods.clickBttNormal(transactionButton);
-        LoggerUtility.infoTest("User opens Transcation Page!");
+        LoggerUtility.infoTest("User opens Transaction Page!");
     }
 
 }

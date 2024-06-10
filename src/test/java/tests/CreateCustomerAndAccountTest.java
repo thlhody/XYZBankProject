@@ -35,6 +35,7 @@ public class CreateCustomerAndAccountTest extends Hooks {
 
         homePage.navigateToHomePage();
         homePage.navigateToManagerPage();
+
         bankMP.navigateTo("show customers", customerObjectA);
 
     }

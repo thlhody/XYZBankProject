@@ -13,7 +13,9 @@ public class WaitMethod extends Hooks {
 
     public void waitToSee() {
         try {
-            Thread.sleep(1000);
+            Integer waitTime = 1000;
+            Thread.sleep(waitTime);
+            LoggerUtility.infoTest("User Waits: "+ waitTime+"millis");
         } catch (Exception e) {
             LoggerUtility.errorTestCase(e.getMessage());
         }
